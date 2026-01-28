@@ -8,12 +8,12 @@
 
 namespace surfacescry {
 
-EventLogView::EventLogView(std::shared_ptr<WindowManager> windowManager, QWidget *parent)
+EventLogView::EventLogView(QWidget *parent)
     : QWidget(parent) {
     auto *layout = new QVBoxLayout(this);
 
     auto *view = new QTableView(this);
-    model_ = new EventLogModel(std::move(windowManager), view);
+    model_ = new EventLogModel(view);
     view->setModel(model_);
     view->horizontalHeader()->setStretchLastSection(true);
     view->verticalHeader()->setVisible(false);
