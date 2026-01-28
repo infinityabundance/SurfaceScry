@@ -18,9 +18,6 @@ class MainWindow final : public QMainWindow {
 public:
     explicit MainWindow(QWidget *parent = nullptr);
 
-private slots:
-    void onCurrentWindowChanged(const QModelIndex &current, const QModelIndex &previous);
-
 private:
     std::shared_ptr<KDEWindowManagerBackend> windowManager_;
     WindowTreeModel *windowModel_ = nullptr;

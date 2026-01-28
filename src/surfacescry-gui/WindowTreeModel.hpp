@@ -1,10 +1,8 @@
 #pragma once
 
 #include <QAbstractTableModel>
-#include <QStringList>
 
 #include <memory>
-#include <vector>
 
 #include "kde_window_manager_backend.hpp"
 
@@ -21,19 +19,8 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
 
-    std::shared_ptr<Window> windowForIndex(const QModelIndex &index) const;
-
-private slots:
-    void onWindowCreated(std::shared_ptr<Window> window);
-    void onWindowDestroyed(const QString &id);
-    void onWindowUpdated(std::shared_ptr<Window> window, const QStringList &fields);
-
 private:
-    QString backendLabel(WindowBackend backend) const;
-    int indexForId(const QString &id) const;
-
     std::shared_ptr<WindowManager> windowManager_;
-    std::vector<std::shared_ptr<Window>> windows_;
 };
 
 } // namespace surfacescry

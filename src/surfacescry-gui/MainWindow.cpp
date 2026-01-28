@@ -1,7 +1,5 @@
 #include "MainWindow.hpp"
 
-#include <QHeaderView>
-#include <QItemSelectionModel>
 #include <QSplitter>
 #include <QTreeView>
 #include <QVBoxLayout>
@@ -21,25 +19,11 @@ MainWindow::MainWindow(QWidget *parent)
     windowModel_ = new WindowTreeModel(windowManager_, windowTree);
     windowTree->setModel(windowModel_);
     windowTree->setHeaderHidden(false);
-    windowTree->setSelectionBehavior(QAbstractItemView::SelectRows);
-    windowTree->setSelectionMode(QAbstractItemView::SingleSelection);
-    windowTree->setAlternatingRowColors(true);
-    if (auto *header = windowTree->header()) {
-        header->setSectionResizeMode(QHeaderView::ResizeToContents);
-        header->setStretchLastSection(true);
-    }
-
-    if (auto *selectionModel = windowTree->selectionModel()) {
-        connect(selectionModel,
-                &QItemSelectionModel::currentChanged,
-                this,
-                &MainWindow::onCurrentWindowChanged);
-    }
 
     auto *rightSplitter = new QSplitter(Qt::Vertical, mainSplitter);
 
     propertyInspector_ = new PropertyInspectorWidget(rightSplitter);
-    eventLogView_ = new EventLogView(windowManager_, rightSplitter);
+    eventLogView_ = new EventLogView(rightSplitter);
 
     rightSplitter->setStretchFactor(0, 2);
     rightSplitter->setStretchFactor(1, 1);
@@ -50,21 +34,6 @@ MainWindow::MainWindow(QWidget *parent)
     mainSplitter->setStretchFactor(1, 2);
 
     setCentralWidget(mainSplitter);
-}
-
-void MainWindow::onCurrentWindowChanged(const QModelIndex &current, const QModelIndex &) {
-    if (!current.isValid()) {
-        propertyInspector_->clear();
-        return;
-    }
-
-    auto window = windowModel_->windowForIndex(current);
-    if (!window) {
-        propertyInspector_->clear();
-        return;
-    }
-
-    propertyInspector_->setWindow(window->info());
 }
 
 } // namespace surfacescry

@@ -11,8 +11,4 @@ const WindowInfo &Window::info() const {
     return info_;
 }
 
-void Window::updateInfo(WindowInfo info) {
-    info_ = std::move(info);
-}
-
 } // namespace surfacescry
