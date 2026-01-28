@@ -3,7 +3,6 @@
 #include <QAbstractTableModel>
 
 #include <memory>
-#include <vector>
 
 #include "kde_window_manager_backend.hpp"
 
@@ -21,10 +20,7 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
 
 private:
-    QString backendLabel(WindowBackend backend) const;
-
     std::shared_ptr<WindowManager> windowManager_;
-    std::vector<std::shared_ptr<Window>> windows_;
 };
 
 } // namespace surfacescry

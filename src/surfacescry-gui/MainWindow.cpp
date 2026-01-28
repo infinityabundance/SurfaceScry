@@ -1,6 +1,5 @@
 #include "MainWindow.hpp"
 
-#include <QHeaderView>
 #include <QSplitter>
 #include <QTreeView>
 #include <QVBoxLayout>
@@ -20,12 +19,6 @@ MainWindow::MainWindow(QWidget *parent)
     windowModel_ = new WindowTreeModel(windowManager_, windowTree);
     windowTree->setModel(windowModel_);
     windowTree->setHeaderHidden(false);
-    windowTree->setSelectionBehavior(QAbstractItemView::SelectRows);
-    windowTree->setAlternatingRowColors(true);
-    if (auto *header = windowTree->header()) {
-        header->setSectionResizeMode(QHeaderView::ResizeToContents);
-        header->setStretchLastSection(true);
-    }
 
     auto *rightSplitter = new QSplitter(Qt::Vertical, mainSplitter);
 

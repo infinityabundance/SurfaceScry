@@ -14,7 +14,6 @@ public:
     ~Window() override = default;
 
     const WindowInfo &info() const;
-    void updateInfo(WindowInfo info);
 
 protected:
     WindowInfo info_;
